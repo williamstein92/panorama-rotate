@@ -1,0 +1,37 @@
+#!/usr/bin/python
+
+#==== imports =================================================================
+#
+import os
+import subprocess
+from argparse import ArgumentParser
+
+import config
+#
+#______________________________________________________________________________
+
+#==== config ==================================================================
+#
+docs = 'Compile the module\'s C dependencies.'
+
+# list of dependencies
+srcpath      = lambda f: os.path.join(config.base, 'src', f)
+dependencies = map(srcpath, ['rotate.c', 'vector.c'])
+#
+#______________________________________________________________________________
+
+#==== setup cli ===============================================================
+#
+parser = ArgumentParser(description=docs)
+
+# no args
+
+res = parser.parse_args();
+#
+#______________________________________________________________________________
+
+#==== compile =================================================================
+#
+subprocess.call(['gcc'] + dependencies + ['-o', config.module_name])
+#
+#______________________________________________________________________________

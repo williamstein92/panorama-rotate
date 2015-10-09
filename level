@@ -1,0 +1,51 @@
+#!/usr/bin/python
+
+#==== imports =================================================================
+#
+import os
+import time
+from argparse import ArgumentParser
+
+from level import level
+#
+#______________________________________________________________________________
+
+#==== config ==================================================================
+#
+docs = 'Process and level panoramas taken with a Ricoh Theta camera.'
+#
+#______________________________________________________________________________
+
+#==== setup cli ===============================================================
+#
+parser = ArgumentParser(description=docs)
+
+args = {
+    'input':    True,
+    'output':   True,
+
+    'roll':     False,
+    'pitch':    False,
+    'yaw':      False
+}
+
+for arg, required in args.items():
+    parser.add_argument('-' + arg[0:1], '--' + arg, required=required)
+
+res = parser.parse_args();
+#
+#______________________________________________________________________________
+
+#==== level ===================================================================
+#
+# i/o
+in_file = os.path.join(os.getcwd(), res.input)
+out_file = os.path.join(os.getcwd(), res.output)
+# leveling
+start = time.time()
+roll, pitch, yaw = level(in_file, out_file, res.roll, res.pitch, res.yaw)
+end = time.time()
+
+print('> roll: {0}, pitch: {1}, yaw: {2} in {3} s'.format(roll, pitch, yaw, end - start))
+#
+#______________________________________________________________________________
