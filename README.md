@@ -1,0 +1,1 @@
+Rotate panoramic images with the level script. For now, the script assumes all images are from the ricoh theta and will break otherwise...generalization just involves editing the vools c files to accept a new parameter, being the width and height of the image. Also, run the build script in vtools to build the dylib before using level.
